@@ -33,4 +33,11 @@ final class RecipeListViewCoordinator {
         self.childCoordinator = detailsCoordinator
         self.childCoordinator.showViewController()
     }
+    
+    func showAlert() {
+        let alertController = UIAlertController(title: "Error!", message: "We had an error loading recipes, please try again", preferredStyle: .alert)
+        let dismissAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alertController.addAction(dismissAction)
+        self.navigationController.present(alertController, animated: true, completion: nil)
+    }
 }

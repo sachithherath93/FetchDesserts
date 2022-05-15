@@ -47,7 +47,7 @@ class DetailsViewController: UIViewController {
         viewModel.fetchRecipe { [weak self] error in
             guard let self = self else { return }
             guard error == nil else {
-                self.showAlert()
+                self.coordinator.showAlert()
                 return
             }
             self.loadingSpinner.stopAnimating()

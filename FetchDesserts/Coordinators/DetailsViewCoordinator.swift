@@ -28,4 +28,11 @@ final class DetailsViewCoordinator {
         detailsVC.coordinator = self
         self.navigationController.pushViewController(self.viewController, animated: false)
     }
+    
+    func showAlert() {
+        let alertController = UIAlertController(title: "Error!", message: "We had an error loading this recipe, please try again", preferredStyle: .alert)
+        let dismissAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alertController.addAction(dismissAction)
+        self.navigationController.present(alertController, animated: true, completion: nil)
+    }
 }

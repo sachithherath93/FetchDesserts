@@ -56,7 +56,7 @@ class RecipeListViewController: UIViewController {
         viewModel.fetchMealList { [weak self] error in
             guard let self = self else { return }
             guard error == nil else {
-                self.showAlert()
+                self.coordinator.showAlert()
                 return
             }
             self.loadingSpinner.stopAnimating()
@@ -64,13 +64,6 @@ class RecipeListViewController: UIViewController {
                 self.tableView.reloadData()
             }
         }
-    }
-    
-    private func showAlert() {
-        let alertController = UIAlertController(title: "Error!", message: "We had an error loading recipes, please try again", preferredStyle: .alert)
-        let dismissAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
-        alertController.addAction(dismissAction)
-        self.navigationController?.present(alertController, animated: true, completion: nil)
     }
     
     deinit {
@@ -98,11 +91,6 @@ extension RecipeListViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = viewModel.mealList[indexPath.row]
         guard let recipeId = item.idMeal, let title = item.strMeal else { return }
-//        let detailsVC = DetailsViewController.viewController
-//        let detailsViewModel = DetailsViewModel(mealId: recipeId)
-//        detailsVC.viewModel = detailsViewModel
-//        detailsVC.vcTitle = item.strMeal
-//        self.navigationController?.pushViewController(detailsVC, animated: true)
         coordinator.showChildViewController(id: recipeId, title: title)
     }
 }
