@@ -30,6 +30,9 @@ class DetailsViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.title = vcTitle
         loadingSpinner.startAnimating()
+        for subView in mainView.subviews {
+            subView.isHidden = true
+        }
         fetchRecipe()
     }
     
@@ -47,8 +50,13 @@ class DetailsViewController: UIViewController {
         viewModel.fetchRecipe { [weak self] error in
             guard let self = self else { return }
             guard error == nil else {
-                self.coordinator.showAlert()
+                DispatchQueue.main.async {
+                    self.coordinator.showAlert()
+                }
                 return
+            }
+            for subView in self.mainView.subviews {
+                subView.isHidden = false
             }
             self.loadingSpinner.stopAnimating()
             self.ingredientsLabel.text = self.viewModel.ingredientsAndMeasurements

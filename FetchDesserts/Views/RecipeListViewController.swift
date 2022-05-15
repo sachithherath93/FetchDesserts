@@ -56,7 +56,9 @@ class RecipeListViewController: UIViewController {
         viewModel.fetchMealList { [weak self] error in
             guard let self = self else { return }
             guard error == nil else {
-                self.coordinator.showAlert()
+                DispatchQueue.main.async {
+                    self.coordinator.showAlert()
+                }
                 return
             }
             self.loadingSpinner.stopAnimating()
