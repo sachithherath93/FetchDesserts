@@ -86,7 +86,6 @@ extension DetailsViewModel {
             combinedString.append(contentsOf: measurement)
             measurementIndex += 1
         }
-        print(combinedString)
         return combinedString
     }
 }
